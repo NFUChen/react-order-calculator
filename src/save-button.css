@@ -1,0 +1,38 @@
+.SaveButtonContainer {
+  text-align: center;
+}
+.SaveButton {
+  background-image: linear-gradient(
+    to right,
+    #e55d87 0%,
+    #5fc3e4 51%,
+    #e55d87 100%
+  );
+}
+.SaveButton {
+  margin: 10px;
+  font-size: 17px;
+  padding: 15px 40px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border: none;
+  border-radius: 25px;
+}
+
+.SaveButton:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+
+.SaveButton:active {
+  transform: translateY(3px);
+  opacity: 0.7;
+}

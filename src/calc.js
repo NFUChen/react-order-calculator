@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./calc.css";
+import SaveButton from "./save-button";
 
 export default class Calc extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class Calc extends Component {
       spec: "",
       quantity: 0,
       bucketReturned: 0,
+      totalPrice: 0,
     };
   }
 
@@ -88,6 +90,7 @@ export default class Calc extends Component {
           {label}:{" "}
         </label>
         <input
+          className={`input-${fieldName}`}
           type="number"
           id={fieldName}
           onChange={this.handleChange}
@@ -96,7 +99,7 @@ export default class Calc extends Component {
       </div>
     );
   }
-  get purchasePrice() {
+  get orderPrice() {
     const itemPriceLookup = {
       脆皮: 780,
       傳統: 840,
@@ -109,7 +112,11 @@ export default class Calc extends Component {
     if (Number.isNaN(totalPrice)) {
       totalPrice = 0;
     }
+    return totalPrice;
+  }
 
+  get orderPriceComponenet() {
+    const totalPrice = this.orderPrice;
     return (
       <div>
         <span className={"purchasePrice-title"}>總售價: </span>
@@ -131,13 +138,14 @@ export default class Calc extends Component {
 
   componentDidMount = () => {
     setInterval(() => {
-      this.setState((prevState) => ({ dateTime: this.currentTime }));
+      this.setState((prevState) => ({
+        dateTime: this.currentTime,
+        totalPrice: this.orderPrice,
+      }));
     }, 1000);
   };
 
   render() {
-    console.log(this.state);
-
     return (
       <div className="calc">
         <p className="title">訂單計算機</p>
@@ -146,7 +154,8 @@ export default class Calc extends Component {
         {this.spec}
         {this.quantity}
         {this.bucketReturned}
-        {this.purchasePrice}
+        {this.orderPriceComponenet}
+        <SaveButton orderInfo={this.state} />
       </div>
     );
   }
