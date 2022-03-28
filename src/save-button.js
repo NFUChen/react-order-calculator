@@ -7,14 +7,16 @@ export default class SaveButton extends Component {
   }
 
   handleSave = () => {
-    // const { orderInfo } = this.props;
-    // console.log(orderInfo);
-    // const excelHandler = new ExcelHandler("orders.xlsx");
-    // console.log(excelHandler._origin);
-    // const newOrder = new Order(orderInfo).getChineseOrderInfo();
-    // console.log(newOrder);
-    // excelHandler.append_and_save(newOrder);
-    console.log(this.props.orderInfo);
+    // console.log(this.props.orderInfo);
+    // console.log(JSON.stringify(this.props.orderInfo));
+
+    fetch("/post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(this.props.orderInfo),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   };
 
   render() {

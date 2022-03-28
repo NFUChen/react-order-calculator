@@ -103,9 +103,9 @@ export default class Calc extends Component {
     const itemPriceLookup = {
       脆皮: 780,
       傳統: 840,
-      串燒: 730,
-      大: 800,
-      特大: 830,
+      串燒: 830,
+      大: 770,
+      特大: 770,
     };
     const { spec, quantity, bucketReturned } = this.state;
     let totalPrice = itemPriceLookup[spec] * +quantity - +bucketReturned * 100;
@@ -120,7 +120,7 @@ export default class Calc extends Component {
     return (
       <div>
         <span className={"purchasePrice-title"}>總售價: </span>
-        {totalPrice != 0 ? totalPrice : null}
+        {totalPrice !== 0 ? totalPrice : null}
       </div>
     );
   }
