@@ -8,23 +8,65 @@ export default class Calc extends Component {
     this.state = {
       dateTime: "",
       customer: "",
+      phoneNumber:"",
       spec: "",
       quantity: 0,
       bucketReturned: 0,
       totalPrice: 0,
     };
   }
+  get multipleCustomer(){
+    
+    if (!this.state.phoneNumber) {
+      return;
+    }
+    const customersArray = ["請輸入客戶名稱", ...Array.from(this.state.customer)]
+    if (customersArray.length < 2) {
+      return;
+    }
+    if (this.state.customer.constructor instanceof String) {
+      return;
+    }
+    
+    
+    return (
+      <div className="mutiple-customer">
+        <label htmlFor="customer">
+          客戶姓名:
+        </label>
+        <select id="customer" onChange={this.handleSelect}>
+          {customersArray.map((option) => (
+            <option key={option} value={option} label={option} >{option}</option> 
+          ))}
+        </select>
+      </div>
+    );
+  }
+  handleSelect = (evt) => {
+    this.handleChange(evt)
+    this.setState({
+      phoneNumber:""
+    })
 
-  get customer() {
+    
+    
+    
+  }
+
+  get oneCustomer() {
+    if (!this.state.customer === String) {
+      return;
+    } 
     return (
       <div className="customer">
         <label htmlFor="customer" className="customer-title">
-          客戶姓名:{" "}
+          客戶姓名:
         </label>
         <input
           type="text"
           placeholder="客戶姓名"
           id="customer"
+          value={this.state.customer}
           onChange={this.handleChange}
         />
       </div>
@@ -125,15 +167,52 @@ export default class Calc extends Component {
     );
   }
 
+  get phoneNumber() {
+    return (
+      <div>
+      <label htmlFor="phoneNumber" className="phoneNumber-title">電話: </label>
+        <input type="text" 
+        placeholder="請輸入電話末3-5碼" 
+        id="phoneNumber" 
+        onChange={this.handPhoneNumberInput} 
+        value={this.state.phoneNumber}
+        />
+        
+      </div>
+    )
+    
+  }
+  handPhoneNumberInput = (evt) => {
+    this.handleChange(evt)
+    this.fetchCustomersID(evt.target.value)
+  }
+  fetchCustomersID = (phoneNumber) => {
+    fetch("/customer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(phoneNumber),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const {customers} = data;
+        if (customers.length > 0 && phoneNumber.length >= 3) {
+          this.setState({customer: customers})
+        }
+      }
+      );
+  };
+  
+
+
   handleChange = (evt) => {
     const currentTargetValue = evt.target.value;
     if (currentTargetValue < 0) {
       return;
     }
-
     this.setState({
       [evt.target.id]: currentTargetValue,
     });
+    
   };
 
   componentDidMount = () => {
@@ -141,16 +220,20 @@ export default class Calc extends Component {
       this.setState((prevState) => ({
         dateTime: this.currentTime,
         totalPrice: this.orderPrice,
+        
       }));
     }, 1000);
   };
 
   render() {
+    console.log(this.state)
+    
     return (
       <div className="calc">
         <p className="title">訂單計算機</p>
         {this.dateTime}
-        {this.customer}
+        {this.multipleCustomer ?  this.multipleCustomer : this.oneCustomer} 
+        {this.phoneNumber}
         {this.spec}
         {this.quantity}
         {this.bucketReturned}

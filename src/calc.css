@@ -2,13 +2,15 @@
   margin: 7px;
 }
 .calc {
+  display: flex;
+  flex-direction: column;
   margin-top: 50px;
   padding: 20px;
   text-align: left;
-  border: 5px solid #e55d87;
-  border-radius: 15%;
+  border: 3px solid #e55d87;
+  border-radius: 2rem;
   width: 300px;
-  height: 340px;
+  height: auto;
   background-color: white;
 }
 
@@ -19,34 +21,29 @@
   letter-spacing: 1rem;
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
-.fading {
-  animation-name: fadeIn;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-  will-change: opacity;
+
+.customer-title {
+  margin-right: 15px;
 }
 
 .spec-title {
   margin-right: 50px;
 }
-#spec {
+.phoneNumber-title {
+  margin-right: 40px;
+}
+#spec{
   transform: scale(120%);
-  /* border: none; */
   width: 45%;
 }
+
+
 
 .date-title {
   margin-right: 45px;
 }
+
 
 .purchasePrice-title {
   margin-right: 150px;

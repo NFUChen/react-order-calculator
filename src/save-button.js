@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./save-button.css";
-import { ExcelHandler, Order } from "./excel-handler";
 export default class SaveButton extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +8,10 @@ export default class SaveButton extends Component {
   handleSave = () => {
     // console.log(this.props.orderInfo);
     // console.log(JSON.stringify(this.props.orderInfo));
+    if (!this.props.orderInfo.totalPrice) {
+      alert("輸入錯誤請重新輸入")
+      return;
+    }
 
     fetch("/post", {
       method: "POST",
