@@ -29,6 +29,3 @@ class CustomerFilter:
 
         return {"customers": valid_customers}
 
-customer_filter = CustomerFilter()
-print(customer_filter.customer_info)
-print(customer_filter.filter("689367"))

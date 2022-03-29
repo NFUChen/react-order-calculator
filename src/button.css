@@ -1,7 +1,7 @@
-.SaveButtonContainer {
-  text-align: center;
+.ButtonContainer {
+  /* text-align: center; */
 }
-.SaveButton {
+.Button {
   background-image: linear-gradient(
     to right,
     #e55d87 0%,
@@ -9,7 +9,7 @@
     #e55d87 100%
   );
 }
-.SaveButton {
+.Button {
   margin: 10px;
   font-size: 17px;
   padding: 15px 40px;
@@ -24,7 +24,7 @@
   border-radius: 25px;
 }
 
-.SaveButton:hover {
+.Button:hover {
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
@@ -32,7 +32,7 @@
   transform: translateY(-3px);
 }
 
-.SaveButton:active {
+.Button:active {
   transform: translateY(3px);
   opacity: 0.6;
   opacity: 0.7;

@@ -9,7 +9,7 @@
   text-align: left;
   border: 3px solid #e55d87;
   border-radius: 2rem;
-  width: 300px;
+  width: 350px;
   height: auto;
   background-color: white;
 }
@@ -50,4 +50,8 @@
 }
 .purchasePrice-title-out {
   opacity: 0;
+}
+
+.button-container {
+  display: flex;
 }

@@ -1,19 +1,17 @@
 import React, { Component } from "react";
-import "./save-button.css";
+import "./button.css";
 export default class SaveButton extends Component {
   constructor(props) {
     super(props);
   }
 
   handleSave = () => {
-    // console.log(this.props.orderInfo);
-    // console.log(JSON.stringify(this.props.orderInfo));
     if (!this.props.orderInfo.totalPrice) {
       alert("輸入錯誤請重新輸入")
       return;
     }
 
-    fetch("/post", {
+    fetch("/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.props.orderInfo),
@@ -25,8 +23,8 @@ export default class SaveButton extends Component {
 
   render() {
     return (
-      <div className="SaveButtonContainer">
-        <button className="SaveButton" onClick={this.handleSave}>
+      <div className="ButtonContainer">
+        <button className="Button" onClick={this.handleSave}>
           儲存
         </button>
       </div>

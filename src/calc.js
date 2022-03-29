@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./calc.css";
 import SaveButton from "./save-button";
+import ExportButton from "./export-button";
 
 export default class Calc extends Component {
   constructor(props) {
@@ -250,7 +251,11 @@ export default class Calc extends Component {
         {this.quantity}
         {this.bucketReturned}
         {this.orderPriceComponenet}
+        <div className="button-container">
         <SaveButton orderInfo={this.state} resetOrderInfo={this.resetOrderInfo}/>
+        <ExportButton/>
+        </div>
+        
       </div>
     );
   }

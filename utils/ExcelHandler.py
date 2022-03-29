@@ -1,6 +1,7 @@
 from typing import Dict
 import pandas as pd
 import os
+import shutil
 class ExcelHandler:
   def __init__(self) -> None:
       if self._is_order_file_exist():
@@ -17,3 +18,11 @@ class ExcelHandler:
         updated_data.to_csv("orders.csv", index= False)
   def _is_order_file_exist(self) -> bool:
 	  return 'orders.csv' in os.listdir()
+  
+  def export_files_to_desktop(self):
+
+    if not self._is_order_file_exist():
+      raise ValueError("Order files is not yet created")
+
+    desktop_path = os.path.expanduser("~/Desktop")
+    shutil.copy("./orders.csv", desktop_path)
