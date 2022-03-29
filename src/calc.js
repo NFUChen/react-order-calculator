@@ -98,7 +98,7 @@ export default class Calc extends Component {
 
   get spec() {
     const options = [
-      { value: "default", label: "請選擇規格" },
+      { value: "", label: "請選擇規格" },
       { value: "脆皮", label: "脆皮豆腐" },
       { value: "傳統", label: "傳統豆腐" },
       { value: "串燒", label: "串燒豆腐" },
@@ -108,7 +108,7 @@ export default class Calc extends Component {
     return (
       <div className="spec">
         <label className="spec-title">規格: </label>
-        <select onChange={this.handleChange} id="spec">
+        <select onChange={this.handleChange} id="spec" value={this.state.spec}>
           {options.map((option) => (
             <option key={option.label} value={option.value}>
               {option.label}
@@ -137,6 +137,7 @@ export default class Calc extends Component {
           id={fieldName}
           onChange={this.handleChange}
           placeholder={`請輸入${label}`}
+          value={this.state[fieldName]}
         />
       </div>
     );
@@ -224,6 +225,17 @@ export default class Calc extends Component {
       }));
     }, 1000);
   };
+  resetOrderInfo = () => {
+    this.setState({
+      dateTime: "",
+      customer: "",
+      phoneNumber:"",
+      spec:"",
+      quantity: "",
+      bucketReturned: "",
+      totalPrice: "",
+    });
+  }
 
   render() {
     console.log(this.state)
@@ -238,7 +250,7 @@ export default class Calc extends Component {
         {this.quantity}
         {this.bucketReturned}
         {this.orderPriceComponenet}
-        <SaveButton orderInfo={this.state} />
+        <SaveButton orderInfo={this.state} resetOrderInfo={this.resetOrderInfo}/>
       </div>
     );
   }
