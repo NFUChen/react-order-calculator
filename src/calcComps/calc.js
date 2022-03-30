@@ -170,7 +170,7 @@ export default class Calc extends Component {
     return (
       <div>
         <label htmlFor="phoneNumber" className="phoneNumber-title">
-          電話:{" "}
+          電話查詢:{" "}
         </label>
         <input
           type="text"
@@ -183,10 +183,17 @@ export default class Calc extends Component {
     );
   }
   handPhoneNumberInput = (evt) => {
+    if (this.state.customer) {
+      return;
+    }
     this.handleChange(evt);
     this.fetchCustomersID(evt.target.value);
   };
   fetchCustomersID = (phoneNumber) => {
+    if (phoneNumber.length < 3) {
+      return;
+    }
+
     fetch("/customer", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -195,7 +202,7 @@ export default class Calc extends Component {
       .then((response) => response.json())
       .then((data) => {
         const { customers } = data;
-        if (customers.length > 0 && phoneNumber.length >= 3) {
+        if (customers.length > 0) {
           this.setState({ customer: customers });
         }
       });
