@@ -1,13 +1,8 @@
 .App {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 0vh;
-  opacity: 0;
-}
-
-.App {
   opacity: 1;
   height: 90vh;
-  transition: all ease-in 0.5s;
 }

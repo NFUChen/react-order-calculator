@@ -1,10 +1,11 @@
-import Calc from "./calc";
-
+import Calc from "./calcComps/calc";
+import CustomerManager from "./customerManagerComps/customer-manager";
 import "./App.css";
 function App() {
   return (
     <div className="App">
       <Calc />
+      <CustomerManager />
     </div>
   );
 }

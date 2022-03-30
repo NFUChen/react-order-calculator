@@ -9,55 +9,52 @@ export default class Calc extends Component {
     this.state = {
       dateTime: "",
       customer: "",
-      phoneNumber:"",
+      phoneNumber: "",
       spec: "",
       quantity: 0,
       bucketReturned: 0,
       totalPrice: 0,
     };
   }
-  get multipleCustomer(){
-    
+  get multipleCustomer() {
     if (!this.state.phoneNumber) {
       return;
     }
-    const customersArray = ["請輸入客戶名稱", ...Array.from(this.state.customer)]
+    const customersArray = [
+      "請輸入客戶名稱",
+      ...Array.from(this.state.customer),
+    ];
     if (customersArray.length < 2) {
       return;
     }
     if (this.state.customer.constructor instanceof String) {
       return;
     }
-    
-    
+
     return (
       <div className="mutiple-customer">
-        <label htmlFor="customer">
-          客戶姓名:
-        </label>
+        <label htmlFor="customer">客戶姓名:</label>
         <select id="customer" onChange={this.handleSelect}>
           {customersArray.map((option) => (
-            <option key={option} value={option} label={option} >{option}</option> 
+            <option key={option} value={option} label={option}>
+              {option}
+            </option>
           ))}
         </select>
       </div>
     );
   }
   handleSelect = (evt) => {
-    this.handleChange(evt)
+    this.handleChange(evt);
     this.setState({
-      phoneNumber:""
-    })
-
-    
-    
-    
-  }
+      phoneNumber: "",
+    });
+  };
 
   get oneCustomer() {
     if (!this.state.customer === String) {
       return;
-    } 
+    }
     return (
       <div className="customer">
         <label htmlFor="customer" className="customer-title">
@@ -172,22 +169,23 @@ export default class Calc extends Component {
   get phoneNumber() {
     return (
       <div>
-      <label htmlFor="phoneNumber" className="phoneNumber-title">電話: </label>
-        <input type="text" 
-        placeholder="請輸入電話末3-5碼" 
-        id="phoneNumber" 
-        onChange={this.handPhoneNumberInput} 
-        value={this.state.phoneNumber}
+        <label htmlFor="phoneNumber" className="phoneNumber-title">
+          電話:{" "}
+        </label>
+        <input
+          type="text"
+          placeholder="請輸入電話末3-5碼"
+          id="phoneNumber"
+          onChange={this.handPhoneNumberInput}
+          value={this.state.phoneNumber}
         />
-        
       </div>
-    )
-    
+    );
   }
   handPhoneNumberInput = (evt) => {
-    this.handleChange(evt)
-    this.fetchCustomersID(evt.target.value)
-  }
+    this.handleChange(evt);
+    this.fetchCustomersID(evt.target.value);
+  };
   fetchCustomersID = (phoneNumber) => {
     fetch("/customer", {
       method: "POST",
@@ -196,15 +194,12 @@ export default class Calc extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        const {customers} = data;
+        const { customers } = data;
         if (customers.length > 0 && phoneNumber.length >= 3) {
-          this.setState({customer: customers})
+          this.setState({ customer: customers });
         }
-      }
-      );
+      });
   };
-  
-
 
   handleChange = (evt) => {
     const currentTargetValue = evt.target.value;
@@ -214,7 +209,6 @@ export default class Calc extends Component {
     this.setState({
       [evt.target.id]: currentTargetValue,
     });
-    
   };
 
   componentDidMount = () => {
@@ -222,7 +216,6 @@ export default class Calc extends Component {
       this.setState((prevState) => ({
         dateTime: this.currentTime,
         totalPrice: this.orderPrice,
-        
       }));
     }, 1000);
   };
@@ -230,32 +223,33 @@ export default class Calc extends Component {
     this.setState({
       dateTime: "",
       customer: "",
-      phoneNumber:"",
-      spec:"",
+      phoneNumber: "",
+      spec: "",
       quantity: "",
       bucketReturned: "",
       totalPrice: "",
     });
-  }
+  };
 
   render() {
-    console.log(this.state)
-    
+    console.log(this.state);
+
     return (
       <div className="calc">
         <p className="title">訂單計算機</p>
         {this.dateTime}
-        {this.multipleCustomer ?  this.multipleCustomer : this.oneCustomer} 
+        {this.multipleCustomer ? this.multipleCustomer : this.oneCustomer}
         {this.phoneNumber}
         {this.spec}
         {this.quantity}
         {this.bucketReturned}
         {this.orderPriceComponenet}
-        <div className="button-container">
-        <SaveButton orderInfo={this.state} resetOrderInfo={this.resetOrderInfo}/>
-        <ExportButton/>
-        </div>
-        
+
+        <SaveButton
+          orderInfo={this.state}
+          resetOrderInfo={this.resetOrderInfo}
+        />
+        {/* <ExportButton/> */}
       </div>
     );
   }

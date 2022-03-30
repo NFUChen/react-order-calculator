@@ -1,6 +1,7 @@
 from typing import List
 from ExcelHandler import ExcelHandler
 from CustomerFilter import CustomerFilter
+from CustomerInfoManager import CustomerInfoManager
 from flask import Flask, request
 from flask_cors import CORS
 # answer from https://stackoverflow.com/questions/65622053/how-to-send-a-post-request-to-flask-api-using-fetch-in-a-react-app
@@ -41,8 +42,18 @@ def get_filtered_customers() -> List[str]:
 
     
 
-    return valid_customers
+    return {"customers": valid_customers}
+#/add_customer_info
 
+@app.route("/add_customer_info", methods=["POST"])
+def add_customer_info() -> bool:
+    customer_info = request.json
+    manager = CustomerInfoManager()
+    manager.add_customer_info(customer_info)
+    
+
+
+    return {"msg":"Customer info added"}
 
 if __name__ == "__main__":
   app.run(debug=True)

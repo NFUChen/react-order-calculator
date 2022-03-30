@@ -17,15 +17,18 @@ class CustomerFilter:
         for customer, phone_number in zip(customer_id_list, phone_number_list):
             customers.append([customer, phone_number])
 
+
+
         return customers
 
 
-    def filter(self, input_phone_number:str) -> Dict[str,List[str]]:
+    def filter(self, input_phone_number:str) -> List[str]:
         valid_customers = []
         for idx in range(len(self.customer_info)):
             customer_id, current_phone_number = self.customer_info[idx]
             if (current_phone_number[-len(input_phone_number):]) == input_phone_number:
                 valid_customers.append(customer_id)
+        valid_customers = list(set(valid_customers))
 
-        return {"customers": valid_customers}
+        return valid_customers
 
