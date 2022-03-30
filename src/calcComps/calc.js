@@ -52,9 +52,6 @@ export default class Calc extends Component {
   };
 
   get oneCustomer() {
-    if (!this.state.customer === String) {
-      return;
-    }
     return (
       <div className="customer">
         <label htmlFor="customer" className="customer-title">
@@ -184,6 +181,7 @@ export default class Calc extends Component {
   }
   handPhoneNumberInput = (evt) => {
     if (this.state.customer) {
+      alert("請先將客戶姓名欄清空再進行查詢");
       return;
     }
     this.handleChange(evt);
