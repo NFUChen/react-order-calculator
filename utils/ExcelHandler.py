@@ -12,10 +12,11 @@ class ExcelHandler:
       if not self._is_order_file_exist():
         #create a new file based on this newly created dataframe
         new_data.to_csv("orders.csv", index = False, encoding='utf_8_sig')
-      else:
-        #concat orders file with data to be appended and save it
-        updated_data = pd.concat([self._origin, new_data], axis=0, ignore_index= True)
-        updated_data.to_csv("orders.csv", index= False, encoding='utf_8_sig')
+	return
+      
+      #concat orders file with data to be appended and save it
+      updated_data = pd.concat([self._origin, new_data], axis=0, ignore_index= True)
+      updated_data.to_csv("orders.csv", index= False, encoding='utf_8_sig')
   def _is_order_file_exist(self) -> bool:
 	  return 'orders.csv' in os.listdir()
   
